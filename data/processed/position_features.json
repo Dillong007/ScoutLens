@@ -1,0 +1,32 @@
+{
+  "Forward": [
+    "total_shots",
+    "xg",
+    "xa",
+    "chances_created",
+    "touches_opposition_box",
+    "successful_dribbles",
+    "final_third_passes",
+    "aerial_duels_won"
+  ],
+  "Midfielder": [
+    "xg",
+    "xa",
+    "chances_created",
+    "touches_opposition_box",
+    "final_third_passes",
+    "accurate_passes",
+    "successful_dribbles",
+    "recoveries"
+  ],
+  "Defender": [
+    "tackles_won",
+    "interceptions",
+    "recoveries",
+    "blocks",
+    "clearances",
+    "aerial_duels_won",
+    "accurate_passes",
+    "final_third_passes"
+  ]
+}

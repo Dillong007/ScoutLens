@@ -1,0 +1,25 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python-generated files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# IDE settings
+.idea/
+.vscode/
+
+# Raw data is recreated by src/01_load_data.py
+data/raw/
+
+# Private Streamlit configuration
+.streamlit/secrets.toml
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
