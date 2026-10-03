@@ -11,7 +11,7 @@ processed_folder = project_folder / "data/processed"
 # Load position-aware profiles
 profiles = pd.read_csv(
     processed_folder
-    / "scoutlens_position_profiles.csv"
+    / "parallel_xi_position_profiles.csv"
 )
 
 

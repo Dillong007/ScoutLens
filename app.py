@@ -5,7 +5,7 @@ from sklearn.metrics import pairwise_distances
 import plotly.graph_objects as go
 import json
 st.set_page_config(
-    page_title="ScoutLens",
+    page_title="Parallel XI",
     page_icon="⚽",
     layout="wide",
 )
@@ -17,7 +17,7 @@ processed_folder = project_folder / "data/processed"
 def load_profiles():
     return pd.read_csv(
         processed_folder
-        / "scoutlens_position_profiles.csv"
+        / "parallel_xi_position_profiles.csv"
     )
 
 @st.cache_data
@@ -40,7 +40,7 @@ position_features = (
 )
 
 
-st.title("⚽ ScoutLens")
+st.title("⚽ Parallel XI")
 
 st.write(
     "Compare Premier League players across eight "
@@ -420,7 +420,7 @@ with st.expander(
         """
 ### Data
 
-ScoutLens uses 2025/26 Premier League player-match
+Parallel XI uses 2025/26 Premier League player-match
 data from the
 [FPL Core Insights repository](https://github.com/olbauday/FPL-Core-Insights).
 

@@ -455,7 +455,7 @@ processed_folder.mkdir(
 
 position_profiles_file = (
     processed_folder
-    / "scoutlens_position_profiles.csv"
+    / "parallel_xi_position_profiles.csv"
 )
 
 eligible_players.to_csv(
