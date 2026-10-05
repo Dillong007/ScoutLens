@@ -4,7 +4,7 @@
 
 Parallel XI identifies statistically comparable players and explains each match through per-90 metrics, position-relative percentiles, and interactive visualizations.
 
-[Open the live application](https://scoutlens-player-similarity.streamlit.app)
+[Open the live application](https://parallel-xi-analytics.streamlit.app)
 
 ## Overview
 
