@@ -47,7 +47,10 @@ st.write(
     "position-specific performance dimensions and "
     "discover statistically similar alternatives."
 )
-
+st.caption(
+    "2025/26 Premier League • 300 eligible outfield "
+    "players • Same-position comparisons"
+)
 # Create readable player labels
 player_labels = {
     row["player_id"]: (
@@ -451,3 +454,15 @@ at least 80% coverage for detailed metrics are included.
   than replace video analysis.
         """
     )
+st.divider()
+
+st.link_button(
+    "View the source code on GitHub",
+    "https://github.com/Dillong007/ScoutLens",
+)
+
+st.caption(
+    "Independent educational portfolio project. "
+    "Recommendations are exploratory and should support, "
+    "not replace, scouting judgment."
+)

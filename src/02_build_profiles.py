@@ -111,7 +111,7 @@ audit_data = audit_data.merge(
 )
 
 
-# Goalkeepers are outside the current ScoutLens model
+# Goalkeepers are outside the current Parallel XI model
 audit_data = audit_data[
     audit_data["position"] != "Goalkeeper"
 ]

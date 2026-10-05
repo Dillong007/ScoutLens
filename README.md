@@ -1,68 +1,82 @@
 # Parallel XI
 
-Parallel XI is an interactive Premier League player-similarity application that identifies statistically comparable players using position-aware performance profiles.
+**A position-aware Premier League player-similarity application.**
 
-Rather than evaluating every player through the same universal metrics, Parallel XI uses different feature sets for forwards, midfielders, and defenders to better reflect their positional responsibilities.
+Parallel XI identifies statistically comparable players and explains each match through per-90 metrics, position-relative percentiles, and interactive visualizations.
 
-## Features
+[Open the live application](https://scoutlens-player-similarity.streamlit.app)
 
-- Search 300 eligible Premier League players
-- Discover the five most statistically similar players
-- Compare only players within the same positional group
-- Explore position-relative percentile radar charts
-- Review exact per-90 values and standardized differences
-- Reproduce the analysis from the original raw data
-- Access documented model-validation results
+## Overview
+
+Player comparisons are most useful when they reflect positional responsibilities. Parallel XI therefore evaluates forwards, midfielders, and defenders with different eight-metric profiles rather than applying one universal definition of similarity.
+
+Users can:
+
+- Search 300 eligible Premier League outfield players
+- Discover five statistically similar same-position players
+- Compare position-relative percentile profiles on an interactive radar chart
+- Review exact per-90 values and standardized metric gaps
+- Inspect the methodology, data source, validation, and limitations
 
 ## Methodology
 
-Parallel XI transforms player-match records into season-level profiles through the following process:
+The project transforms player-match records into season-level profiles:
 
 1. Combine all 38 gameweeks of 2025/26 Premier League data.
 2. Remove player-match records with zero minutes played.
 3. Aggregate match statistics into season totals.
-4. Convert performance metrics into per-90 rates.
-5. Require at least 900 minutes and sufficient data coverage.
-6. Assign position-specific feature sets to forwards, midfielders, and defenders.
-7. Standardize features within each positional group using `StandardScaler`.
-8. Calculate Euclidean distance between player profiles.
-9. Rank each player’s five closest same-position matches.
+4. Convert profile metrics into per-90 rates.
+5. Retain outfield players with at least 900 minutes and at least 80% detailed-metric coverage.
+6. Assign separate feature sets to forwards, midfielders, and defenders.
+7. Standardize each metric within its positional group using `StandardScaler`.
+8. Calculate Euclidean distance between same-position player profiles.
+9. Return the five players with the smallest profile distances.
 
-A smaller profile distance indicates greater statistical similarity.
+A smaller profile distance represents greater statistical similarity. Radar-chart values are percentiles relative to other eligible players in the same positional group.
 
-Radar-chart values represent a player’s percentile relative to other eligible players in the same positional group.
+## Position-Specific Features
 
-## Position-Aware Modeling
+| Forwards | Midfielders | Defenders |
+|---|---|---|
+| Shots | Expected goals | Tackles won |
+| Expected goals | Expected assists | Interceptions |
+| Expected assists | Chances created | Recoveries |
+| Chances created | Opposition-box touches | Blocks |
+| Opposition-box touches | Final-third passes | Clearances |
+| Successful dribbles | Accurate passes | Aerial duels won |
+| Final-third passes | Successful dribbles | Accurate passes |
+| Aerial duels won | Recoveries | Final-third passes |
 
-Parallel XI selects eight metrics for each positional group from performance areas including:
+The machine-readable configuration is stored in `data/processed/position_features.json`.
 
-- Shooting and expected goals
-- Chance creation and expected assists
-- Penalty-area involvement
-- Progressive and final-third passing
-- Dribbling
-- Recoveries and defensive actions
-- Aerial involvement
-- Ball distribution
+## Data
 
-The exact feature configuration is stored in:
+The project uses public 2025/26 Premier League player-match data from the [FPL Core Insights repository](https://github.com/olbauday/FPL-Core-Insights).
 
-```text
-data/processed/position_features.json
-```
+The raw source contains:
 
-This approach prevents defenders, midfielders, and forwards from being evaluated through identical expectations.
+- 12,754 player-match records
+- 380 matches
+- 565 players
+
+After the playing-time and coverage requirements are applied, the comparison pool contains 300 players:
+
+- 146 midfielders
+- 125 defenders
+- 29 forwards
+
+The processed player profiles are included so the application can run without downloading the raw datasets.
 
 ## Project Structure
 
 ```text
-Parallel XI/
+parallel-xi-football-analytics/
 ├── .streamlit/
 │   └── config.toml
 ├── data/
-│   ├── raw/
+│   ├── raw/                         # Recreated by the loading script
 │   └── processed/
-│       ├── scoutlens_position_profiles.csv
+│       ├── parallel_xi_position_profiles.csv
 │       └── position_features.json
 ├── docs/
 │   └── model_validation.md
@@ -76,94 +90,37 @@ Parallel XI/
 └── .gitignore
 ```
 
-## Running ScoutLens Locally
-
-### 1. Create a virtual environment
+## Run Locally
 
 ```bash
 python -m venv .venv
-```
-
-### 2. Install the required packages
-
-```bash
 python -m pip install -r requirements.txt
-```
-
-### 3. Download the raw datasets
-
-```bash
 python src/01_load_data.py
-```
-
-### 4. Build the position-aware player profiles
-
-```bash
 python src/02_build_profiles.py
-```
-
-### 5. Run the model-validation script
-
-```bash
 python src/03_similarity.py
+python -m streamlit run app.py
 ```
 
-### 6. Launch the application
+Because the processed profiles are included, the application can also be launched immediately after installing the requirements:
 
 ```bash
 python -m streamlit run app.py
 ```
 
-Because the processed profiles are included with the project, the Streamlit application can also be launched immediately after installing the required packages.
+## Validation
 
-## Model Validation
+The recommendations were manually reviewed for ten recognizable players spanning strikers, wide attackers, central midfielders, centre-backs, and fullbacks. All ten produced positionally and stylistically plausible comparison sets.
 
-The similarity model was reviewed using recognizable examples across all three positional groups.
-
-The validation set included players such as:
-
-- Bukayo Saka
-- Erling Haaland
-- Mohamed Salah
-- Declan Rice
-- Virgil van Dijk
-- Adrien Truffert
-- Ollie Watkins
-- Ibrahima Konaté
-
-The results produced positionally and stylistically plausible recommendations across the tested profiles.
-
-Additional findings are documented in:
-
-```text
-docs/model_validation.md
-```
-
-## Data
-
-The project uses public 2025/26 Premier League player-match data obtained from the [FPL Core Insights repository](https://github.com/olbauday/FPL-Core-Insights).
-
-The raw datasets contain:
-
-- 12,754 player-match records
-- 380 unique matches
-- 565 unique players
-
-After the playing-time and data-coverage requirements are applied, ScoutLens contains 300 eligible player profiles:
-
-- 146 midfielders
-- 125 defenders
-- 29 forwards
+This face-validity review does not prove predictive performance, but it provides a practical check that the position-specific features and distance calculations behave as intended. Full results are documented in [`docs/model_validation.md`](docs/model_validation.md).
 
 ## Limitations
 
-- Broad positional labels cannot distinguish every tactical role.
-- Statistical similarity does not necessarily represent equal player quality.
-- Team tactics, opposition strength, injuries, age, and transfer value are not modeled.
-- Per-90 statistics can still be influenced by role, possession, and team context.
-- The application depends on the accuracy and continued availability of the public source data.
-
-ScoutLens should therefore be interpreted as an exploratory scouting and player-comparison tool rather than a complete recruitment model.
+- Similarity does not measure overall player quality.
+- Results describe the 2025/26 season and do not predict future performance or transfer success.
+- Broad positional labels do not capture every tactical role.
+- Per-90 statistics remain influenced by team style, possession, and opposition strength.
+- Age, injuries, league context, and transfer value are not modeled.
+- Recommendations should support scouting judgment rather than replace video analysis.
 
 ## Technology
 
@@ -172,3 +129,7 @@ ScoutLens should therefore be interpreted as an exploratory scouting and player-
 - scikit-learn
 - Plotly
 - Streamlit
+
+## Attribution
+
+This is an independent educational portfolio project. It is not affiliated with the Premier League, FPL Core Insights, or any professional club or commercial scouting platform. Source data remains subject to the rights and terms of its respective providers.

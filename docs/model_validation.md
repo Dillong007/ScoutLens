@@ -1,4 +1,4 @@
-# ScoutLens Model Validation
+# Parallel XI Model Validation
 
 ## Purpose
 
@@ -27,12 +27,14 @@ All ten players received positionally and stylistically plausible recommendation
 
 ## Interpretation
 
-The tests indicate that position-specific metrics and within-position standardization produce more credible recommendations than the original universal feature model. Reciprocal results such as Rice–Szoboszlai and Truffert–Aina also confirmed consistent distance calculations.
+The tests indicate that position-specific metrics and within-position standardization produce more credible recommendations than the original universal feature model.
+
+Reciprocal results such as Rice–Szoboszlai and Truffert–Aina also confirmed that the distance calculations behave consistently.
 
 ## Limitations
 
 - Validation is manual and partly subjective.
 - Similarity does not measure overall player quality.
 - Results describe one season and do not predict future performance or transfer success.
-- Broad position categories still combine distinct subroles.
+- Broad position categories still combine distinct tactical roles.
 - Future versions could introduce role clustering and out-of-sample validation.
