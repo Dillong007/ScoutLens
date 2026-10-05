@@ -1,8 +1,8 @@
-# ScoutLens
+# Parallel XI
 
-ScoutLens is an interactive Premier League player-similarity application that identifies statistically comparable players using position-aware performance profiles.
+Parallel XI is an interactive Premier League player-similarity application that identifies statistically comparable players using position-aware performance profiles.
 
-Rather than evaluating every player through the same universal metrics, ScoutLens uses different feature sets for forwards, midfielders, and defenders to better reflect their positional responsibilities.
+Rather than evaluating every player through the same universal metrics, Parallel XI uses different feature sets for forwards, midfielders, and defenders to better reflect their positional responsibilities.
 
 ## Features
 
@@ -16,7 +16,7 @@ Rather than evaluating every player through the same universal metrics, ScoutLen
 
 ## Methodology
 
-ScoutLens transforms player-match records into season-level profiles through the following process:
+Parallel XI transforms player-match records into season-level profiles through the following process:
 
 1. Combine all 38 gameweeks of 2025/26 Premier League data.
 2. Remove player-match records with zero minutes played.
@@ -34,7 +34,7 @@ Radar-chart values represent a player’s percentile relative to other eligible 
 
 ## Position-Aware Modeling
 
-ScoutLens selects eight metrics for each positional group from performance areas including:
+Parallel XI selects eight metrics for each positional group from performance areas including:
 
 - Shooting and expected goals
 - Chance creation and expected assists
@@ -56,7 +56,7 @@ This approach prevents defenders, midfielders, and forwards from being evaluated
 ## Project Structure
 
 ```text
-ScoutLens/
+Parallel XI/
 ├── .streamlit/
 │   └── config.toml
 ├── data/
