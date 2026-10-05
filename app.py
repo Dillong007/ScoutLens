@@ -458,7 +458,7 @@ st.divider()
 
 st.link_button(
     "View the source code on GitHub",
-    "https://github.com/Dillong007/ScoutLens",
+    "https://github.com/Dillong007/parallel-xi-football-analytics",
 )
 
 st.caption(
